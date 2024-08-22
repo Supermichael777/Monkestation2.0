@@ -189,20 +189,20 @@
 	set_custom_materials(temp_materials)
 
 /// Reverse tactical tac_reloads
-/obj/item/ammo_box/magazine/attackby(obj/item/A, mob/user, params)
+/obj/item/ammo_box/magazine/attackby(obj/item/OB, mob/user, params)
 	.=..()
-	if(istype(A, /obj/item/gun/ballistic))
-		var/obj/item/gun/ballistic/B = A;
-		if(B.tac_reloads == TRUE && do_after(user, 5, target=user))
-			return B.attackby(src, user, params)
+	if(istype(OB, /obj/item/gun/ballistic))
+		var/obj/item/gun/ballistic/Ballistic = OB;
+		if(Ballistic.tac_reloads == TRUE && do_after(user, 0.5 SECONDS, target=user))
+			return Ballistic.attackby(src, user, params)
 
 //handling MOSTLY for the bulldog shotgun
-/obj/item/ammo_box/magazine/attackby_secondary(obj/item/A, mob/user, params)
+/obj/item/ammo_box/magazine/attackby_secondary(obj/item/OB, mob/user, params)
 	.=..()
-	if(istype(A, /obj/item/gun/ballistic))
-		var/obj/item/gun/ballistic/B = A;
-		if(B.tac_reloads == TRUE && do_after(user, 5, target=user))
-			return B.attackby_secondary(src, user, params)
+	if(istype(OB, /obj/item/gun/ballistic))
+		var/obj/item/gun/ballistic/Ballistic = OB;
+		if(Ballistic.tac_reloads == TRUE && do_after(user, 0.5 SECONDS, target=user))
+			return Ballistic.attackby_secondary(src, user, params)
 
 ///Count of number of bullets in the magazine
 /obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)

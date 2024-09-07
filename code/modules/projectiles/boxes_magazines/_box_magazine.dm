@@ -194,7 +194,11 @@
 	if(istype(OB, /obj/item/gun/ballistic))
 		var/obj/item/gun/ballistic/Ballistic = OB;
 		if(Ballistic.tac_reloads == TRUE && do_after(user, 0.5 SECONDS, target=user))
-			return Ballistic.attackby(src, user, params)
+			if (Ballistic.magazine == TRUE)
+				Ballistic.eject_magazine(user, FALSE, src)
+				return
+			Ballistic.insert_magazine(user, src)
+
 
 //handling MOSTLY for the bulldog shotgun
 /obj/item/ammo_box/magazine/attackby_secondary(obj/item/OB, mob/user, params)
@@ -202,7 +206,8 @@
 	if(istype(OB, /obj/item/gun/ballistic))
 		var/obj/item/gun/ballistic/Ballistic = OB;
 		if(Ballistic.tac_reloads == TRUE && do_after(user, 0.5 SECONDS, target=user))
-			return Ballistic.attackby_secondary(src, user, params)
+			Ballistic.replace_secondary_magazine(src, user)
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 ///Count of number of bullets in the magazine
 /obj/item/ammo_box/magazine/proc/ammo_count(countempties = TRUE)

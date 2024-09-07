@@ -194,7 +194,7 @@
 	if(istype(OB, /obj/item/gun/ballistic))
 		var/obj/item/gun/ballistic/Ballistic = OB;
 		if(Ballistic.tac_reloads == TRUE && do_after(user, 0.5 SECONDS, target=user))
-			if (Ballistic.magazine == TRUE)
+			if (Ballistic.magazine != null)
 				Ballistic.eject_magazine(user, FALSE, src)
 				return
 			Ballistic.insert_magazine(user, src)
